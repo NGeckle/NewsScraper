@@ -6,7 +6,7 @@ var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
 
-// var db = require("./models");
+var db = require("./models");
 
 var PORT = 3000;
 
@@ -50,8 +50,7 @@ app.get("/scrape", function(req, res) {
                 .find("div.content")
                 .find("h3.title")
                 .find("a")
-                .attr("href");
-    
+                .attr("href");    
 
             db.Article.create(result)
                 .then(function(dbArticle) {
@@ -61,7 +60,8 @@ app.get("/scrape", function(req, res) {
                     return res.json(err);
                 });
         });
-    
+        
+        $("#wrapper").empty();
         res.send("Scrape Complete");
     });
 });
