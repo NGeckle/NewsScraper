@@ -8,6 +8,7 @@ var cheerio = require("cheerio");
 
 var db = require("./models");
 
+
 var PORT = 3000;
 
 var app = express();
@@ -40,7 +41,6 @@ app.get("/scrape", function(req, res) {
 
             var result = {};
     
-
             result.title = $(this)
                 .find("div.content")
                 .find("h3.title")
@@ -50,7 +50,7 @@ app.get("/scrape", function(req, res) {
                 .find("div.content")
                 .find("h3.title")
                 .find("a")
-                .attr("href");    
+                .attr("href");
 
             db.Article.create(result)
                 .then(function(dbArticle) {
@@ -61,8 +61,6 @@ app.get("/scrape", function(req, res) {
                 });
         });
         
-        $("#wrapper").empty();
-        res.send("Scrape Complete");
     });
 });
 
